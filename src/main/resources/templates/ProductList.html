@@ -23,7 +23,14 @@
         <tr th:each="product: ${products}">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
-            <td><a th:href="@{|/product/edit/${product.productId}|}" class="btn btn-primary btn-sm">Edit</a></td>
+            <td>
+                <div class="d-flex justify-content-center">
+                    <a th:href="@{|/product/edit/${product.productId}|}" class="btn btn-primary btn-sm mr-3">Edit</a>
+                    <form th:action="@{|/product/delete/${product.productId}|}" th:method="delete">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>

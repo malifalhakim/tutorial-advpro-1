@@ -43,4 +43,9 @@ public class ProductRepository {
         }
         return null;
     }
+
+    public Product delete(Product product){
+        productData.remove(product);
+        return product;
+    }
 }
