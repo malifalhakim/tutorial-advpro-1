@@ -27,12 +27,12 @@ public class ProductRepository {
         Product oldProduct = findById(id);
         int index = productData.indexOf(oldProduct);
 
-        // if product found
+        // if product found in producData list
         if (index >= 0){
             productData.set(index, product);
             return product;
         }
-        return null;
+        throw new IllegalArgumentException("Product with ID " + id + " can't be edited.");
     }
 
     public Product findById(String id){
@@ -41,7 +41,7 @@ public class ProductRepository {
                 return product;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Product with ID " + id + " not found.");
     }
 
     public Product delete(Product product){
