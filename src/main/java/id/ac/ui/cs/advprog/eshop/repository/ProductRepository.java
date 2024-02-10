@@ -25,21 +25,15 @@ public class ProductRepository {
         Product oldProduct = findById(id);
         int index = productData.indexOf(oldProduct);
 
-        // if product found in producData list
-        if (index >= 0){
-            productData.set(index, product);
-            return product;
-        }
-        throw new IllegalArgumentException("Product with ID " + id + " can't be edited.");
+        productData.set(index, product);
+        return product;
     }
 
     public Product findById(String id){
-        for (Product product: productData){
-            if (product.getProductId().equals(id)){
-                return product;
-            }
-        }
-        throw new IllegalArgumentException("Product with ID " + id + " not found.");
+        return productData.stream()
+                .filter(product -> product.getProductId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " not found."));
     }
 
     public Product delete(Product product){
