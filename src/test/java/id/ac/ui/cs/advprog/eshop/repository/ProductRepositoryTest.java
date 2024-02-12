@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
 
@@ -100,9 +99,10 @@ class ProductRepositoryTest {
         Product newProduct = new Product();
         newProduct.setProductName("Sampo Cap Usap");
         newProduct.setProductQuantity(11);
+        String oldProductId = oldProduct.getProductId();
 
         assertThrows(IllegalArgumentException.class, () ->
-                productRepository.edit(newProduct, oldProduct.getProductId()));
+                productRepository.edit(newProduct, oldProductId));
     }
 
     @Test
