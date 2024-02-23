@@ -45,7 +45,7 @@ What do you think about the cleanliness of the code of the new functional test s
 the new code reduce the code quality? Identify the potential clean code issues, explain
 the reasons, and suggest possible improvements to make the code cleaner!
 
-> Menurut saya, pengimplementasian seperti itu akan membuat code pada program menjadi tidak bersih. Jika *setup procedure* dan *instance variabel* yang digunakan sama, maka terdapat duplikasi kode di antara dua *class code* tersebut. Duplikasi kode ini akan membuat kode menjadi lebih kotor dan program akan lebih sulit untuk di-*mantain*. Hal ini dikarenakan jika terjadi perubahan setup prosedur, maka kita harus mengubah di kedua *class* tersebut. Menurut saya, salah satu solusi yang dapat diterapkan adalah dengan menggabungkan kedua test tersebut pada *class* yang sama sehingga *setup procedure* hanya perlu dilakukan sekali. Selain itu, kedua test memiliki cara kerja atau karakteristik yang mirip sehingga dapat digabungkan pada satu *class* saja.]
+> Menurut saya, pengimplementasian seperti itu akan membuat code pada program menjadi tidak bersih. Jika *setup procedure* dan *instance variabel* yang digunakan sama, maka terdapat duplikasi kode di antara dua *class code* tersebut. Duplikasi kode ini akan membuat kode menjadi lebih kotor dan program akan lebih sulit untuk di-*mantain*. Hal ini dikarenakan jika terjadi perubahan setup prosedur, maka kita harus mengubah di kedua *class* tersebut. Menurut saya, salah satu solusi yang dapat diterapkan adalah dengan menggabungkan kedua test tersebut pada *class* yang sama sehingga *setup procedure* hanya perlu dilakukan sekali. Selain itu, kedua test memiliki cara kerja atau karakteristik yang mirip sehingga dapat digabungkan pada satu *class* saja.
 
 # Tutorial 2
 You have implemented a CI/CD process that automatically runs the test suites, analyzes code quality, and deploys to a PaaS. Try to answer the following questions in order to reflect on your attempt completing the tutorial and exercise.
@@ -56,3 +56,41 @@ List the code quality issue(s) that you fixed during the exercise and explain yo
 
 Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
 > Menurut saya, implementasi saat ini sudah memenuhi definisi *Continous Integration* dan *Continuous Deployment*. Hal ini dikarenakan pada *workflows* yang saya tulis telah dilakukan proses pengintegrasian dan pengetesan secara otomatis untuk setiap perubahan yang saya *push* atau *merge* pada repositori. Dengan adanya workflow tersebut, saya dapat memverifikasi perubahan yang saya lakukan tidak merubah fungsionalitas kode sebelumnya. Selain itu, pada implementasi ini juga sudah ditambahkan *workflows* untuk *code analysis* yang dapat membantu saya memverfikasi kode saya secara otomatis dengan lebih detail. Untuk *continuous deployment*, saya menggunakan Koyeb untuk melakukan *deployment* otomatis. Dengan menggunakan Koyeb yang sudah tergintegrasi dengan GitHub Actions, saya dapat melakukan *deployment* secara otomatis setiap terjadi *push* ataupun *merge* ke *branch main* sehingga sudah memenuhi definisi atau syarat *continous deployment*.
+
+# Tutorial 3
+Apply the SOLID principles you have learned. You are allowed to modify the source code according to the principles you want to implement. Please answer the following questions:
+
+1. Explain what principles you apply to your project!
+> - Single Responsibility Principle <br>
+> Prinsip ini membahas bahwa suatu *class* hanya memiliki satu tanggung jawab (*responsibility*). <br>
+> Pada tutorial ini, contoh SRP yang diterapkan diantaranya:
+>   - Memisahkan *class* *Controller* *Product* dan *Car*. Kedua *class* tersebut memiliki tanggung jawab yang berbeda dan tidak terkait satu sama lain.
+>   - Memindahkan proses penetapan Id pada *constructor* *class* menjadi pada method create di product repositori. Hal ini bertujuan untuk membuat *class* Model hanya memiliki satu tanggung jawab tertentu saja.
+> - Open-Closed Principle <br>
+> Prinsip ini membahas bahwa suatu entitas *software* (*classes*, *modules*, *function*, etc.) terbuka untuk *extension*, tapi tertutup untuk modifikasi.
+> Pada tutorial ini, contoh OCP yang diterapkan adalah penggunaan *interface* *service* dengan metode-metode yang telah didefinisikan dan kemudian dibuat kelas-kelas yang mengimplementasikan interface tersebut. Dengan cara ini, kita dapat menambahkan operasi-operasi untuk kelas tertentu dengan lebih mudah tanpa mengubah operasi utama.
+> - Liskov Substitution Principle <br>
+> Prinsip ini membahas bahwa jika suatu program terdefinisi untuk suatu objek dengan *type* T, maka perilaku dari program tersebut tidak berubah jika objek diganti dengan yang memiliki *type* S (dimana S adalah *sub-type* dari T).
+> Pada tutorial ini, setelah dilakukannya pemisahan antara *Product* dan *Car* Controller, tidak ada hubungan *inheritance* yang terjadi pada setiap kelasnya. Oleh karena itu, tidak ada terjadinya pelanggaran prinsip ini.
+> - Interface Segregation Principle <br>
+> Prinsip ini membahas bahwa suatu *interface* yang besar dapat dipecah menjadi *interface* yang lebih kecil dengan fokus tertentu. Hal ini bertujuan untuk memastikan bahwa *class* yang mengimplementasikan interface tersebut menggunakan/memerlukan semua method pada *interface* tersebut. Pada tutorial ini, contoh ISP yang diterapkan adalah adanya penggunaan *interface* (*Interface* CarService dan ProductService) yang memiliki satu tujuan/tanggung jawab saja sehingga kelas yang mengimplementasikannya pasti memerlukannya.
+> - Dependency Inversion Principle <br>
+> Prinsip ini membahas bahwa modul tingkat tinggi tidak boleh bergantung pada modul tingkat rendah. Akan tetapi, keduanya harus bergantung pada abstraksi.
+> Pada tutorial ini, contoh DIP yang diterapkan diantaranya:
+>   - Mengubah objek `private CarServiceImpl carService` menjadi `private CarService carService;` sehingga modul terkait dengan abstraksinya.
+
+2. Explain the advantages of applying SOLID principles to your project with examples.
+
+> - Dengan menerapkan SRP, saya dapat memiliki kode yang mudah dibaca dan lebih *maintainable*. Selain itu, prinsip ini juga akan memudahkan dalam melakukan *testing* dan bersifat *lower coupling*. Contohnya, jika saya mempunyai kelas yang terfokuskan/terbagi tanggung jawabnya dengan baik, maka saya dapat dengan lebih mudah untuk menentukan apa yang perlu di test dan memudahkan untuk melakukan test karena minimnya dependensi dengan komponen lain.
+> - Dengan menerapkan OCP, saya dapat dengan mudah menambahkan fungsionalitas tanpa mengubah kode yang telah ada sehingga dapat mencegah munculnya bug. Contohnya, jika saya ingin mmembuat fungsionalitas baru, saya dapat membuat kelas baru misalnya, AdvanceCarServiceImpl yang juga mengimplementasikan CarService.
+> - Dengan menerapkan LSP, saya menggunakan program yang sudah (tanpa mengubahnya) untuk memproses suatu objek dengan type atau sub-type tertentu. Misalnya jika saya mempunyai *class* Bird dan *class* Eagle yang merupakan sub-class dari Bird, maka saya dapat menggunakan method fly() kepada dua objek *class* tersebut tanpa perlu mengubah-ubah implementasi fly().
+> - Dengan menerapkan ISP, saya dapat memiliki kode yang mudah dibaca dan lebih mudah dipelihara. Contohnya, jika terdapat kode yang mengimplementasikan suatu interface yang spesifik dan minimal, maka kelas yang mengimplementasikan akan lebih mudah dipahami dan dipelihara karena tidak ada method yang tidak diimplementasikan atau diimplementasi dengan kode *dummy*.
+> - Dengan menerapkan DIP, saya dapat memiliki kode yang lebih mudah untuk di-*maintain* karna saya dapat mengubah perubahan pada *lower-level module* tanpa mempengaruhi *high-level* modul. Contohnya, saya dapat mengubah implementasi CarServiceImpl tanpa mengubah kode pada CarController. Selain itu, prinsip ini dapat memudahkan untuk melakukan test dikarenakan tidak adanya dependensi yang kuat antara dua komponen/modul.
+
+3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+> - Jika SRP tidak diterapkan, maka kode akan lebih sulit untuk dibaca dan dipelihara. Hal ini dikarenakan tidak ada pemisah antara fungsionalitas yang satu dan yang lain. Selain itu, tidak menerapkan SRP dapat membuat proses *testing* menjadi lebih susah. Contohnya jika saya menggabungkan beberapa *class* dalam satu module, akan mengakibatkan kode menjadi susah dibaca dan susah untuk di-*test* dikarenakan terdapat resiko *coupling* antar kelas.
+> - Jika OCP tidak diterapkan, maka kode akan lebih susah untuk di-*maintain*. Contohnya jika saya ingin menambah fungsionalitas suatu kelas dan saya tidak menerapkan OCP, maka saya kemungkinan perlu mengubah kode yang sudah ada.
+> - Jika LSP tidak diterapkan, maka kode akan menjadi tidak fleksibel. Misalnya jika saya memiliki program yang terdefinisi dengan suatu type T, maka jika saya menggunakan program untuk sub-type dari T, program harus diubah terlebih dahulu.
+> - Jika ISP tidak diterapkan, maka pada kode akan kemungkinan dimana *class* tidak mengimplementasikan semua method dengan benar karena ada beberapa method yang tidak diperlukan. Hal ini dapat menimbulkan kode menjadi lebih sulit dibaca dan susah dipelihara. Contohnya jika saya menggunakan Interface yang besar dan interface diimplement oleh banyak kelas dan jika suatu ketika interface perlu diubah, maka saya perlu mengubah banyak kelas yang mengimplementasikannya. 
+> - Jika DIP tidak diterapkan, maka kode akan lebih sulit untuk di-*maintain*. Contohnya, jika saya menggunakan Service Implementation dibanding menggunakan Interfacenya, maka akan ada resiko *coupling* sehingga modul controller saya menjadi bergantung dengan service implementation saya dan juga menyebabkan kode menjadi susah untuk diubah atau di-*scale*.
