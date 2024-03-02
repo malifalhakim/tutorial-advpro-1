@@ -35,6 +35,7 @@ public class OrderRepositoryTest {
         orders.add(order2);
         Order order3 = new Order("e334ef40-9eff-4da8-9487-8ee697ecbf1e",
                 products, 1708570000L,"Bambang Sudrajat");
+        orders.add(order3);
     }
 
     @Test
