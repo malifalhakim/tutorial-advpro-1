@@ -31,7 +31,7 @@ public class OrderTest {
     void testCreateOrderEmptyProduct(){
         this.products.clear();
 
-        assertThrows(IllegalAccessException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b",
                     this.products, 1708560000L,"Safira Sudrajat");
         });
@@ -62,7 +62,7 @@ public class OrderTest {
 
     @Test
     void testCreateOrderInvalidStatus(){
-        assertThrows(IllegalAccessException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b",
                     this.products, 1708560000L, "Safira Sudrajat", "MEOW");
         });
@@ -80,6 +80,6 @@ public class OrderTest {
     void testSetStatusToInvalidStatus(){
         Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b",
                 this.products, 1708560000L, "Safira Sudrajat");
-        assertThrows(IllegalAccessException.class, () -> order.setStatus("MEOW"));
+        assertThrows(IllegalArgumentException.class, () -> order.setStatus("MEOW"));
     }
 }
