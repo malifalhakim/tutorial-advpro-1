@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,16 +22,16 @@ public class PaymentTest {
     @Test
     void testCreatePaymentInvalidMethod(){
         assertThrows(IllegalArgumentException.class,() -> {
-            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","PINJAMAN",paymentData,"SUCCESS");
+            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","PINJAMAN",paymentData, PaymentStatus.SUCCESS.getValue());
         });
     }
 
     @Test
     void testCreatePaymentVoucherMethod(){
-        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData,"SUCCESS");
-        assertEquals("VOUCHER",payment.getMethod());
+        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER.getValue(), paymentData,PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentMethod.VOUCHER.getValue(),payment.getMethod());
         assertEquals("78952556-012a-4c07-b546-54eb1396d79b",payment.getId());
-        assertEquals("SUCCESS",payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(),payment.getStatus());
         assertEquals(1,payment.getPaymentData().size());
         assertTrue(payment.getPaymentData().containsKey("voucherCode"));
         assertEquals("ESHOP1234ABC5678",payment.getPaymentData().get("voucherCode"));
@@ -38,14 +40,14 @@ public class PaymentTest {
     @Test
     void testCreatePaymentInvalidStatus(){
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData,"MEOW");
+            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.VOUCHER.getValue(), paymentData,"MEOW");
         });
     }
 
     @Test
     void testCreatePaymentDefaultStatus(){
-        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData);
-        assertEquals("WAITING",payment.getStatus());
+        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.VOUCHER.getValue(), paymentData);
+        assertEquals(PaymentStatus.WAITING.getValue(),payment.getStatus());
     }
 
     @Test
@@ -53,21 +55,20 @@ public class PaymentTest {
         this.paymentData.clear();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData,"SUCCESS");
+            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.VOUCHER.getValue(), paymentData,PaymentStatus.SUCCESS.getValue());
         });
     }
 
     @Test
     void testEditPaymentInvalidStatus(){
-        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData);
+        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.VOUCHER.getValue(), paymentData);
         assertThrows(IllegalArgumentException.class,() -> payment.setStatus("MEOW"));
     }
 
     @Test
     void testEditPaymentSuccessStatus(){
-        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData);
-        payment.setStatus("SUCCESS");
-        assertEquals("SUCCESS",payment.getStatus());
-
+        Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.VOUCHER.getValue(), paymentData);
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(),payment.getStatus());
     }
 }
