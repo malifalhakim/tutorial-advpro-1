@@ -31,7 +31,7 @@ public class PaymentTest {
         assertEquals("78952556-012a-4c07-b546-54eb1396d79b",payment.getId());
         assertEquals("SUCCESS",payment.getStatus());
         assertEquals(1,payment.getPaymentData().size());
-        assertTrue(payment.getPaymentData().contains("voucherCode"));
+        assertTrue(payment.getPaymentData().containsKey("voucherCode"));
         assertEquals("ESHOP1234ABC5678",payment.getPaymentData().get("voucherCode"));
     }
 
