@@ -45,7 +45,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentDefaultStatus(){
         Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b","VOUCHER",paymentData);
-        assertEquals("WAITING",payment.getMethod());
+        assertEquals("WAITING",payment.getStatus());
     }
 
     @Test
