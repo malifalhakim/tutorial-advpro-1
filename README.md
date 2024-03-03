@@ -94,3 +94,22 @@ Apply the SOLID principles you have learned. You are allowed to modify the sourc
 > - Jika LSP tidak diterapkan, maka kode akan menjadi tidak fleksibel. Misalnya jika saya memiliki program yang terdefinisi dengan suatu type T, maka jika saya menggunakan program untuk sub-type dari T, program harus diubah terlebih dahulu.
 > - Jika ISP tidak diterapkan, maka pada kode akan kemungkinan dimana *class* tidak mengimplementasikan semua method dengan benar karena ada beberapa method yang tidak diperlukan. Hal ini dapat menimbulkan kode menjadi lebih sulit dibaca dan susah dipelihara. Contohnya jika saya menggunakan Interface yang besar dan interface diimplement oleh banyak kelas dan jika suatu ketika interface perlu diubah, maka saya perlu mengubah banyak kelas yang mengimplementasikannya. 
 > - Jika DIP tidak diterapkan, maka kode akan lebih sulit untuk di-*maintain*. Contohnya, jika saya menggunakan Service Implementation dibanding menggunakan Interfacenya, maka akan ada resiko *coupling* sehingga modul controller saya menjadi bergantung dengan service implementation saya dan juga menyebabkan kode menjadi susah untuk diubah atau di-*scale*.
+
+
+# Tutorial 4
+You have followed the Test-Driven Development workflow in the Exercise. Now answer these questions:
+1. Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+    > Menurut saya TDD *flow* cukup membantu saya dalam mengimplementasikan project ini. Pada project ini, test yang digunakan
+   > sudah cukup benar dimana telah dianalisi tiap kasus dari suatu fungsi (*happy* dan *unhappy* *test*). Hal ini meyakinkan dan memudahkan saya dalam membuat setiap implementasi dengan baik\
+   > Salah satu hal yang mungkin dapat ditingkatkan adalah membuat *functional test* untuk beberapa fitur. Hal ini dapat meningkatkan tingkat keyakinan saya dalam membuat suatu fitur. 
+   > Dari segi maintainability, TDD *flow* dapat memberikan saya kepercayaan diri untuk melakukan refactor code. Hal ini dikarenakan saya menjadi lebih tau
+   > Apa *requirement* atau input yang dibutuhkan dan *output* yang harus dihasilkan. Selain dengan TDD *flow*, saya dapat mengurangi pembuatan implementasi dua method atau fungsi yang saling terkait.
+   > Dengan *TDD*, saya harus membuat test-nya terlebih dahulu sehingga mengurangi kecenderungan membuat dua method atau fungsi yang saling terkait. Dari segi *productive workflow*, TDD *flow* juga membantu saya.
+   > Salah satunya dengan TDD *flow* saya mendapatkan *feedback* error yang terjadi dengan lebih cepat. Selain itu, proses penjalanan *test* juga berlangsung cepat dan bisa menjalankan subset tertentu saja.
+
+2. You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+   > Pada tutorial ini, menurut saya, F.I.R.S.T principle sudah diterapkan dengan cukup baik. Test berlangsung cepat dan tidak mengganggu workflow lain. Unit test dan functional test telah dipisahkan dan tidak ada peristiwa
+   > menunggu suatu subsystem/fungsi pada saat menggunakan unit test. Test yang digunakan juga terisolasi dengan baik dimana tidak ada unit test yang saling bergantung atau mempengaruhi. Terdapat definisi "setUp" dan "tearDown" untuk menghindari duplikasi
+   > dan membantu mengisolasi test case. Selain itu, telah digunakan mock Object untuk menghindari dependensi dengan objek lain. Test juga mampu berjalan dengan konsisten. Test juga bersifat self-validating dimana digunakan Assertions untuk menghasilkan test yang strict dan benar.
+   > Terakhir, test juga telah mengecek semua kasus mulai dari happy hingga unhappy test sehingga test case sudah meng-cover semua kemungkinan hasil.
+
