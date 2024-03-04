@@ -4,7 +4,6 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Getter
@@ -24,7 +23,11 @@ public class Payment {
             throw new IllegalArgumentException();
         }
 
-        if (paymentData.isEmpty()){
+        boolean isVoucherMethodBankPayment = (method.equals(PaymentMethod.VOUCHER.getValue()) & (paymentData.containsKey("bankName") | paymentData.containsKey("referenceCode")));
+        boolean isBankMethodVoucherPayment = (method.equals(PaymentMethod.BANK.getValue()) & paymentData.containsKey("voucherCode"));
+        boolean isInvalidMethodPayment = isBankMethodVoucherPayment | isVoucherMethodBankPayment;
+
+        if (paymentData.isEmpty() | isInvalidMethodPayment){
             throw new IllegalArgumentException();
         } else {
             this.paymentData = paymentData;
