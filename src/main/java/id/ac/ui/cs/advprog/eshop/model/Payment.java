@@ -23,9 +23,9 @@ public class Payment {
             throw new IllegalArgumentException();
         }
 
-        boolean isVoucherMethodBankPayment = (method.equals(PaymentMethod.VOUCHER.getValue()) & (paymentData.containsKey("bankName") | paymentData.containsKey("referenceCode")));
-        boolean isBankMethodVoucherPayment = (method.equals(PaymentMethod.BANK.getValue()) & paymentData.containsKey("voucherCode"));
-        boolean isInvalidMethodPayment = isBankMethodVoucherPayment | isVoucherMethodBankPayment;
+        boolean isValidVoucherPayment = (method.equals(PaymentMethod.VOUCHER.getValue()) & paymentData.containsKey("voucherCode") & (paymentData.size() == 1));
+        boolean isValidBankPayment = (method.equals(PaymentMethod.BANK.getValue()) & (paymentData.containsKey("bankName") | paymentData.containsKey("referenceCode")) & (paymentData.size() == 2) );
+        boolean isInvalidMethodPayment = !(isValidBankPayment | isValidVoucherPayment);
 
         if (paymentData.isEmpty() | isInvalidMethodPayment){
             throw new IllegalArgumentException();
