@@ -71,4 +71,12 @@ public class PaymentTest {
         payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(),payment.getStatus());
     }
+
+    @Test
+    void testCreatePaymentInvalidPaymentData(){
+        // Method BANK but PaymentData Voucher
+        assertThrows(IllegalArgumentException.class,() -> {
+            Payment payment = new Payment("78952556-012a-4c07-b546-54eb1396d79b",PaymentMethod.BANK.getValue(), paymentData);
+        });
+    }
 }
