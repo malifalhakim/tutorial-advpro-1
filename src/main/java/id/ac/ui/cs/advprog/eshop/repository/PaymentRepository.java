@@ -33,7 +33,9 @@ public class PaymentRepository {
                     order.setStatus(OrderStatus.FAILED.getValue());
                 }
             } else if (payment.getMethod().equals(PaymentMethod.BANK.getValue())){
-                if (payment.getPaymentData().get("bankName") == null | payment.getPaymentData().get("referenceCode") == null){
+                String bankName = payment.getPaymentData().get("bankName");
+                String referenceCode = payment.getPaymentData().get("referenceCode");
+                if (bankName == null | referenceCode == null){
                     payment.setStatus(PaymentStatus.REJECTED.getValue());
                     order.setStatus(OrderStatus.FAILED.getValue());
                 } else {
@@ -61,13 +63,12 @@ public class PaymentRepository {
                 return curPayment;
             }
         }
-
         return null;
     }
 
     public Payment getPayment(String paymentId){
         for (List<Object> curPaymentData:paymentsData){
-            Payment curPayment = (Payment) (curPaymentData.get(0));
+            Payment curPayment = (Payment) (curPaymentData.getFirst());
             if(paymentId.equals(curPayment.getId())){
                 return curPayment;
             }
@@ -78,7 +79,7 @@ public class PaymentRepository {
     public List<Payment> getAllPayments(){
         List<Payment> payments = new ArrayList<>();
         for (List<Object> curPaymentData:paymentsData){
-            Payment curPayment = (Payment) (curPaymentData.get(0));
+            Payment curPayment = (Payment) (curPaymentData.getFirst());
             payments.add(curPayment);
         }
         return payments;
