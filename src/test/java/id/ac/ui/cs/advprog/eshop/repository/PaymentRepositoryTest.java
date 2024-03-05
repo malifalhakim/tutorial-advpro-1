@@ -31,6 +31,7 @@ class PaymentRepositoryTest {
         product1.setProductQuantity(2);
         products.add(product1);
 
+        orders = new ArrayList<>();
         Order order1 = new Order("13652556-012a-4c07-b546-54eb1396d79b",
                 products, 1708560000L,"Safira Sudrajat");
         orders.add(order1);
