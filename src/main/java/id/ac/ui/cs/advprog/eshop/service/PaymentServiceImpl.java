@@ -16,21 +16,37 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public Payment addPayment(Order order, String method, Map<String,String> paymentData){
-        return null;
+        if (order == null | method == null | paymentData == null){
+            throw new IllegalArgumentException();
+        } else{
+            Payment result = paymentRepository.addPayment(order,method,paymentData);
+            return result;
+        }
     }
 
     @Override
     public Payment setStatus(Payment payment,String status){
-        return null;
+        if (payment == null | status == null){
+            throw new IllegalArgumentException();
+        } else {
+            Payment result = paymentRepository.setStatus(payment,status);
+            return result;
+        }
     }
 
     @Override
     public Payment getPayment(String paymentId){
-        return null;
+        if (paymentId == null){
+            throw new IllegalArgumentException();
+        } else {
+            Payment result = paymentRepository.getPayment(paymentId);
+            return result;
+        }
     }
 
     @Override
     public List<Payment> getAllPayments(){
-        return null;
+        List<Payment> payments = paymentRepository.getAllPayments();
+        return payments;
     }
 }
