@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Repository
 public class PaymentRepository {
@@ -63,7 +64,7 @@ public class PaymentRepository {
                 return curPayment;
             }
         }
-        return null;
+        throw new NoSuchElementException();
     }
 
     public Payment getPayment(String paymentId){
@@ -73,7 +74,7 @@ public class PaymentRepository {
                 return curPayment;
             }
         }
-        return null;
+        throw new NoSuchElementException();
     }
 
     public List<Payment> getAllPayments(){
