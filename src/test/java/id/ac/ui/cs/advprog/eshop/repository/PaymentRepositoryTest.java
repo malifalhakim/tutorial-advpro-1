@@ -104,7 +104,7 @@ class PaymentRepositoryTest {
     void testSetStatusSuccess(){
         Map<String,String> paymentData = new HashMap<>();
         paymentData.put("voucherCode","ESHOP1234ABC5678");
-        Payment payment = new Payment(orders.getFirst().getId(),PaymentMethod.VOUCHER.getValue(), paymentData);
+        Payment payment = paymentRepository.addPayment(orders.getFirst(), PaymentMethod.VOUCHER.getValue(),paymentData);
 
         Payment result = paymentRepository.setStatus(payment,PaymentStatus.SUCCESS.getValue());
         assertEquals(payment.getId(),result.getId());
@@ -116,7 +116,7 @@ class PaymentRepositoryTest {
     void testSetStatusReject(){
         Map<String,String> paymentData = new HashMap<>();
         paymentData.put("voucherCode","ESHOP1234ABC5678");
-        Payment payment = new Payment(orders.getFirst().getId(),PaymentMethod.VOUCHER.getValue(), paymentData);
+        Payment payment = paymentRepository.addPayment(orders.getFirst(),PaymentMethod.VOUCHER.getValue(), paymentData);
 
         Payment result = paymentRepository.setStatus(payment,PaymentStatus.REJECTED.getValue());
         assertEquals(payment.getId(),result.getId());
@@ -145,6 +145,4 @@ class PaymentRepositoryTest {
         assertEquals(orders.getFirst().getId(),allPayments.getFirst().getId());
         assertEquals(orders.get(1).getId(),allPayments.get(1).getId());
     }
-
-
 }
